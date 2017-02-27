@@ -13,16 +13,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Tone Genious' });
 });
 
-router.get('/search', function(req, res, next) {
+router.get('/get_tweets', function(req, res, next) {
   let hashtag = req.query.hashtag;
-
-  let tone_analyzer = watson.tone_analyzer({
-    url: WATSON_TONE_API_URL,
-    username: keys.WATSON_UNAME,
-    password: keys.WATSON_PSWD,
-    version: 'v3',
-    version_date: '2016-05-19'
-  });
 
   let oauth2 = new OAuth2(keys.TWITTER_KEY, keys.TWITTER_SECRET, TWITTER_API_URL, null, 'oauth2/token', null);
   oauth2.getOAuthAccessToken(
@@ -44,23 +36,40 @@ router.get('/search', function(req, res, next) {
           buffer += data;
         });
         result.on('end', function() {
-        let tweets = JSON.parse(buffer);
-        let tweetTexts = [];
-        for (let i = 0; i < tweets.statuses.length; i++) {
-          let text = tweets.statuses[i].text;
-          //  tweetTexts.push(text);
-          tone_analyzer.tone({ text: text }, function(err, tone) {
-            if (err)
-              console.log(err);
-            else
-              console.log(JSON.stringify(tone, null, 2));
+          let tweets = JSON.parse(buffer);
+          console.log(tweets);
+          let client_response = tweets.statuses.filter(function(tweet) {
+            let text = tweet.text;
+            //return !text.match(/^RT\w+ .*/);
+            return tweet.retweeted === false && !text.match(/^RT\s+.*|.*\s+RT\s+.*/);
+          }).map(function(tweet) {
+            console.log(tweet);
+            return { text: tweet.text, name: tweet.user.name }; 
           });
-        }
+          res.send(client_response);
+        });
       });
-    });
-  });
+    }
+  );
 });
 
+router.get('/get_tone', function(req, res, next) {
+  let tweet = req.query.tweet;
+
+  let tone_analyzer = watson.tone_analyzer({
+    url: "https://gateway.watsonplatform.net/tone-analyzer/api",
+    username: keys.WATSON_UNAME,
+    password: keys.WATSON_PSWD,
+    version: 'v3',
+    version_date: '2016-05-19'
+  }
+  );
+  tone_analyzer.tone({ text: tweet }, function(err, tone) {
+    if (err) { console.log(err); }
+    else { res.send(tone); }
+  });
+
+});
 
 module.exports = router;
 

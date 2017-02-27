@@ -18,7 +18,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
     <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    
     <script src="javascripts/watson.js"></script>
+
     <link rel='stylesheet' type='text/css' href='/stylesheets/style.css'>
     
   </head>
@@ -47,15 +49,17 @@
   <div class="panel-heading">Search results</div>
 
   <!-- List group -->
-  <ul class="list-group input-group col-xs-7 col-xs-offset-2">
-    <li class="list-group-item">Tweet 1</li>
-    <li class="list-group-item">Tweet 2</li>
-    <li class="list-group-item">Tweet 3</li>
-    <li class="list-group-item">Tweet 4</li>
-    <li class="list-group-item">Tweet 5</li>
+  <ul class="js-tweets-list list-group input-group col-xs-7 col-xs-offset-2">
   </ul>
 </div>
 <br>
-
+<div class="canvasContainer">
+  <div id="emotionChartContainer">
+  </div>
+  <div id="languageChartContainer">
+  </div>
+  <div id="socialChartContainer">
+</div>
+<div>
 </body>
 </html>
