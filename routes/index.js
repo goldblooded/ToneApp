@@ -10,20 +10,23 @@ const WATSON_TONE_API_URL = "https://gateway.watsonplatform.net/tone-analyzer/ap
 const TWITTER_API_URL = "https://api.twitter.com/";
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Tone Genious' });
+  res.render('index', { title: 'Tone Genius' });
 });
 
 router.get('/get_tweets', function(req, res, next) {
-  let hashtag = req.query.hashtag;
+  let searchKeyword = req.query.searchKeyword;
 
   let oauth2 = new OAuth2(keys.TWITTER_KEY, keys.TWITTER_SECRET, TWITTER_API_URL, null, 'oauth2/token', null);
   oauth2.getOAuthAccessToken(
     '', 
     {'grant_type': 'client_credentials'}, 
     function(e, access_token) {
+      let url = '/1.1/search/tweets.json?q='+searchKeyword+'&lang=en&result_type=popular';
+      let enc_url = encodeURI(url);
+      console.log(enc_url);
       let options = {
         hostname: 'api.twitter.com',
-        path: '/1.1/search/tweets.json?q='+hashtag,
+        path: enc_url,
         headers: {
           Authorization: 'Bearer ' + access_token
         }
@@ -40,7 +43,7 @@ router.get('/get_tweets', function(req, res, next) {
           console.log(tweets);
           let client_response = tweets.statuses.filter(function(tweet) {
             let text = tweet.text;
-            //return !text.match(/^RT\w+ .*/);
+            // text.replace(/(https|http).*\.com/g,'')
             return tweet.retweeted === false && !text.match(/^RT\s+.*|.*\s+RT\s+.*/);
           }).map(function(tweet) {
             console.log(tweet);

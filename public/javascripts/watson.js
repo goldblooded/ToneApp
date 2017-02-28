@@ -8,15 +8,15 @@ function init () {
 }
 
 function handleSubmit() {
-  $('.js-hashtag-input').on('keypress', function(e) {
+  $('.js-search-input').on('keypress', function(e) {
     if (e.which === 13) {
-      var hashtag = '#' + $('.js-hashtag-input').val();
+      var searchKeyword = $('.js-search-input').val();
       // make an ajax req to an endpoint
       $.ajax({
         url: '/get_tweets', 
         type: 'GET', 
         contentType: 'application/json', 
-        data: { hashtag: hashtag },
+        data: { searchKeyword: searchKeyword },
       }).done(function(data) {
         populateTweetsList(data);
         tweetClickHandler();
@@ -30,13 +30,14 @@ function handleSubmit() {
 function tweetClickHandler() {
   $('.js-tweet').on('click', function() {
     let tweet = $(this).text();
+    $(this).css('background-color','lightblue');
     $.ajax({
       url: '/get_tone', 
       type: 'GET', 
       contentType: 'application/json', 
       data: { tweet: tweet },
     }).done(function(data) {
-      console.log('success');
+      // console.log('success');
       processDocumentTone(data); 
     }).fail(function() {
       console.log('failed');

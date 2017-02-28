@@ -37,29 +37,31 @@
 -->
 <br>
 
-<!--Input group with hashtag search-->
-<div class="input-group col-xs-8 col-xs-offset-2">
-  <span class="input-group-addon" id="sizing-addon2">#</span>
-  <input type="text" class="js-hashtag-input form-control" placeholder="Enter hashtag" aria-describedby="basic-addon1">
-</div>
-<br>
-
-<div class="panel panel-default col-xs-8 col-xs-offset-2">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Search results</div>
-
-  <!-- List group -->
-  <ul class="js-tweets-list list-group input-group col-xs-7 col-xs-offset-2">
-  </ul>
-</div>
-<br>
-<div class="canvasContainer">
-  <div id="emotionChartContainer">
+<!--Input group with search-->
+<div class="container">
+  <div class="input-group">
+    <span class="input-group-addon" id="sizing-addon2">Search</span>
+    <input type="text" class="js-search-input form-control" placeholder="Search keywords, handles, or hashtags. Then press enter." aria-describedby="basic-addon1">
   </div>
-  <div id="languageChartContainer">
+  <br>
+
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Search results: click on a tweet to display analysis.</div>
+
+    <!-- List group -->
+    <ul class="js-tweets-list list-group input-group col-xs-7 col-xs-offset-2">
+    </ul>
   </div>
-  <div id="socialChartContainer">
+  <br>
+
+  <div class="canvasContainer">
+    <div id="emotionChartContainer">
+    </div>
+    <div id="languageChartContainer">
+    </div>
+    <div id="socialChartContainer">
+  </div>
 </div>
-<div>
 </body>
 </html>
