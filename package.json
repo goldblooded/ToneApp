@@ -7,11 +7,14 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
     "ejs": "~2.5.5",
     "express": "~4.14.1",
+    "jquery": "^3.1.1",
+    "jquery-dom": "0.0.1",
     "morgan": "~1.7.0",
     "nodemon": "^1.11.0",
     "oauth": "^0.9.15",
@@ -19,6 +22,7 @@
     "webpack": "^2.2.1"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "webpack": "^2.2.1"
   }
 }
